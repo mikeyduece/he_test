@@ -4,7 +4,7 @@ jobs:
     parallelism: 3
     working_directory: ~/he_test
     docker:
-      - image: circleci/ruby:2.6.3-node-browsers
+      - image: circleci/ruby:2.6.3
         environment:
           PGHOST: localhost
           PGUSER: he_test
