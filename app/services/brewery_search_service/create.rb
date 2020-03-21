@@ -1,20 +1,18 @@
 module BrewerySearchService
   class Create < BaseService
     
-    def self.call(query, &block)
-      new(query).call(&block)
+    def self.call(query, url = nil, options = {}, &block)
+      new(query, url, options).call(&block)
     end
-    
-    private
     
     def call(&block)
       search = Search.new(query: query)
       search.save!
       
       yield(Success.new(search), NoTrigger)
-      
+    
     rescue StandardError => e
-      yield(NoTrigger, Failure.new(e.full_messages.first))
+      yield(NoTrigger, Failure.new(e.message))
     end
   end
 end
