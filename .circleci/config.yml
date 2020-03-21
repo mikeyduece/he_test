@@ -1,10 +1,10 @@
-version: 2.1
+version: 2
 jobs:
   build:
     parallelism: 3
     working_directory: ~/he_test
     docker:
-      - image: circleci/ruby:2.6.3-node-browsers
+      - image: circleci/ruby:2.6.3
         environment:
           PGHOST: localhost
           PGUSER: he_test
@@ -13,7 +13,7 @@ jobs:
         environment:
           POSTGRES_USER: he_test
           POSTGRES_DB: he_test_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - checkout
       # Restore Cached Dependencies
