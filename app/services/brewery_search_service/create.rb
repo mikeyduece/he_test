@@ -7,7 +7,7 @@ module BrewerySearchService
     
     def call(&block)
       create_search_if_required
-      breweries = client.send(url, query)
+      breweries = client.send(url, search.query)
       
       yield(Success.new(breweries), NoTrigger)
     
@@ -17,9 +17,11 @@ module BrewerySearchService
     
     private
     
+    attr_reader :search
+    
+    # Finds or creates a query based on the user input. Ensuring that the query is unique
     def create_search_if_required
-      search = Search.new(query: query)
-      search.save!
+      @search ||= Search.find_or_create_by(query: query)
     end
   end
 end
