@@ -5,6 +5,10 @@ class Brewery
     get_url(options: options)
   end
   
+  def find(id:)
+    get_url(url: "#{BASE_URL}/#{id}")
+  end
+  
   private
   
   def get_url(url: nil, options: {})
