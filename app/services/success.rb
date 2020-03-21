@@ -1,7 +1,7 @@
 class Success
   attr_reader :resource
   
-  def intialize(resource = nil)
+  def initialize(resource = nil)
     @resource = resource
   end
   

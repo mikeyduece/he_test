@@ -1,7 +1,7 @@
 class Failure
   attr_reader :error
   
-  def intialize(error)
+  def initialize(error)
     @error = error
   end
   
