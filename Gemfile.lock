@@ -85,6 +85,8 @@ GEM
     factory_bot_rails (4.11.1)
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
+    faker (2.10.2)
+      i18n (>= 1.6, < 2)
     faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.12.2)
@@ -217,6 +219,7 @@ DEPENDENCIES
   devise
   doorkeeper
   factory_bot_rails (~> 4.0)
+  faker
   faraday
   figaro
   listen (>= 3.0.5, < 3.2)
