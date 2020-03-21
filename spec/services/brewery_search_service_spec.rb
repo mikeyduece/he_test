@@ -14,6 +14,17 @@ RSpec.describe 'BrewerySearchService' do
       search = Search.find_by('query @> ?', { by_city: 'Denver' }.to_json)
       
       expect(search).not_to be_nil
+      expect(Search.count).to eq(1)
     end
+  end
+  
+  it 'should reuse queries that match in the DB' do
+    2.times do
+      BrewerySearchService::Create.call({ by_city: 'Denver' }) do |success, _failure|
+        success.call { |resource| expect(resource).to be_a(Array) }
+      end
+    end
+    
+    expect(Search.count).to eq(1)
   end
 end
