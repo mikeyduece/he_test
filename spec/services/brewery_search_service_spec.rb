@@ -27,4 +27,16 @@ RSpec.describe 'BrewerySearchService' do
     
     expect(Search.count).to eq(1)
   end
+
+  it 'should create new search for new query' do
+    BrewerySearchService::Create.call({ by_city: 'Denver' }) do |success, _failure|
+      success.call { |resource| expect(resource).to be_a(Array) }
+    end
+
+    BrewerySearchService::Create.call({ by_city: 'Boston' }) do |success, _failure|
+      success.call { |resource| expect(resource).to be_a(Array) }
+    end
+    
+    expect(Search.count).to eq(2)
+  end
 end
