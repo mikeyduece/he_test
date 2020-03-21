@@ -3,11 +3,11 @@ module Users
     identifier :id
   
     view :normal do
-      fields :name, :email_address
+      fields :name
     end
   
     view :extended do
-      fields :first_name, :last_name
+      fields :first_name, :last_name, :email
     end
   end
 end

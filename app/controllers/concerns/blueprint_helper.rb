@@ -1,7 +1,7 @@
 module BlueprintHelper
   
   def serialized_response(resource, blueprint, options = {})
-    blueprint.render(resource, options)
+    JSON.parse(blueprint.render(resource, options), symbolize_names: true)
   end
   
   def success_response(status = 200, data = {})

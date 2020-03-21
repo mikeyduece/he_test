@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include BlueprintHelper
+  
   before_action :doorkeeper_authorize!
 
   delegate :t, to: I18n
