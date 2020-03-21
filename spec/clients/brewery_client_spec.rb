@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Brewery DB Client' do
-  subject { Brewery.new }
+  subject { BreweryAPI.new }
   
-  it 'is a Brewery object' do
-    expect(subject).to be_a(Brewery)
+  it 'is a BreweryAPI object' do
+    expect(subject).to be_a(BreweryAPI)
   end
   
   it '#list' do
