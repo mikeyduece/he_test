@@ -86,3 +86,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+def use_cassette(cassette, &block)
+  VCR.use_cassette(cassette, allow_playback_repeats: true) do
+    yield
+  end
+end
