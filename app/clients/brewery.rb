@@ -9,6 +9,12 @@ class Brewery
     get_url(url: "#{BASE_URL}/#{id}")
   end
   
+  def search(query:, options: {})
+    url = "#{BASE_URL}/search?query=#{query}"
+    
+    get_url(url: url, options: options)
+  end
+  
   private
   
   def get_url(url: nil, options: {})
