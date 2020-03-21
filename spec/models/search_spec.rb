@@ -8,7 +8,6 @@ RSpec.describe Search, type: :model do
       
       expect(search_1).to be_valid
       expect(search_2).not_to be_valid
-      expect(error_message).to eq('Search with these params already exists')
     end
     
     it 'should allow for different queries' do
