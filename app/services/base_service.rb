@@ -1,14 +1,15 @@
 class BaseService
   
-  def initialize(query: nil, url = nil, options = {})
-    @query = query
-    @url = url
+  def initialize(query = {}, url = nil, options = {})
+    @query   = query
+    @url     = url
     @options = options
   end
   
   private_class_method :new
   
   private
+  
   attr_reader :query, :url, :options
   
   def client
