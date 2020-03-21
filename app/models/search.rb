@@ -1,6 +1,7 @@
 class Search < ApplicationRecord
   store_accessor :query, :types, :city, :state, :tags, :name
   
+  validates :query, presence: true
   validate :ensure_unique_query, on: :create
   
   private
