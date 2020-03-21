@@ -26,7 +26,18 @@ RSpec.describe 'Brewery DB Client' do
   it '#find' do
     use_cassette('find_brewery_2') do
       brewery = subject.find(id: 2)
+
+      expect(brewery[:id]).to eq(2)
+      expect(brewery[:name]).to eq('Avondale Brewing Co')
+      expect(brewery[:name]).not_to eq('Comrade Brewing Co')
+    end
+  end
+
+  it '#search' do
+    use_cassette('search_breweries') do
+      brewery = subject.search(query: 'Comrade')
       require 'pry'; binding.pry
     end
   end
+  
 end
