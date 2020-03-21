@@ -4,9 +4,9 @@ class Api::V1::Users::UsersController < ApplicationController
   def create
     user = User.create(user_params)
     if user
-      success_response(201, user: serialized_resource(user, ::Users::UserBlueprint, view: :extended))
+      success_response(201, user: serialized_response(user, ::Users::UserBlueprint, view: :extended))
     else
-      error_response('A user with that email already exists', 404)
+      error_response(user.errors.full_messages.first, 404)
     end
   end
   
