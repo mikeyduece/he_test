@@ -2,6 +2,7 @@ class ApplicationController < ActionController::API
   include BlueprintHelper
   
   before_action :doorkeeper_authorize!
+  helper_method :current_api_user
 
   delegate :t, to: I18n
 
