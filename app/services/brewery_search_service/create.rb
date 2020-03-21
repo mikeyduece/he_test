@@ -1,13 +1,13 @@
 module BrewerySearchService
   class Create < BaseService
     
-    def self.call(query, url = :list, options = {}, &block)
-      new(query, url, options).call(&block)
+    def self.call(query, url = :list, &block)
+      new(query, url).call(&block)
     end
     
     def call(&block)
       create_search_if_required
-      breweries = client.send(url, options: options)
+      breweries = client.send(url, query)
       
       yield(Success.new(breweries), NoTrigger)
     
