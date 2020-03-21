@@ -1,4 +1,4 @@
-class Brewery
+class BreweryAPI
   BASE_URL = 'https://api.openbrewerydb.org/breweries'.freeze
   private_constant :BASE_URL
   
