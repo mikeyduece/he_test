@@ -92,3 +92,9 @@ def use_cassette(cassette, &block)
     yield
   end
 end
+
+def brewery_service(method, options = {}, &block)
+  "BrewerySearchService::#{method.to_s.classify}".constantize.call(options) do |success, _failure|
+    yield(success, _failure)
+  end
+end
