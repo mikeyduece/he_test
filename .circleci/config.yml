@@ -13,7 +13,7 @@ jobs:
         environment:
           POSTGRES_USER: he_test
           POSTGRES_DB: he_test_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - checkout
       # Restore Cached Dependencies
