@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'BrewerySearchService' do
   it 'should create a Search for new queries' do
     use_cassette('list_with_params') do
-      BrewerySearchService::Create.call({ by_city: 'Denver' }) do |success, _failure|
+      brewery_service(:create, {by_city: 'Denver'}) do |success, _failure|
         success.call do |resource|
           expect(resource).to be_a(Array)
           expect(resource.first).to be_a(Hash)
@@ -20,21 +20,27 @@ RSpec.describe 'BrewerySearchService' do
   
   it 'should reuse queries that match in the DB' do
     2.times do
-      BrewerySearchService::Create.call({ by_city: 'Denver' }) do |success, _failure|
-        success.call { |resource| expect(resource).to be_a(Array) }
+      use_cassette('list_with_params') do
+        brewery_service(:create, { by_city: 'Denver' }) do |success, _failure|
+          success.call { |resource| expect(resource).to be_a(Array) }
+        end
       end
     end
     
     expect(Search.count).to eq(1)
   end
-
+  
   it 'should create new search for new query' do
-    BrewerySearchService::Create.call({ by_city: 'Denver' }) do |success, _failure|
-      success.call { |resource| expect(resource).to be_a(Array) }
+    use_cassette('list_with_params') do
+      brewery_service(:create, { by_city: 'Denver' }) do |success, _failure|
+        success.call { |resource| expect(resource).to be_a(Array) }
+      end
     end
-
-    BrewerySearchService::Create.call({ by_city: 'Boston' }) do |success, _failure|
-      success.call { |resource| expect(resource).to be_a(Array) }
+    
+    use_cassette('list_with_params') do
+      brewery_service(:create, { by_city: 'Boston' }) do |success, _failure|
+        success.call { |resource| expect(resource).to be_a(Array) }
+      end
     end
     
     expect(Search.count).to eq(2)
