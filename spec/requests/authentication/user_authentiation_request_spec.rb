@@ -19,6 +19,7 @@ describe 'User Authentication' do
     expect(response).to be_successful
     
     user_json = JSON.parse(response.body, symbolize_names: true)
+    user = User.last
     
     expect(user_json[:user][:email]).to eq(user.email)
     expect(user_json[:user][:first_name]).to eq(user.first_name)
