@@ -12,9 +12,8 @@ gem 'puma', '~> 4.1'
 gem 'database_cleaner'
 gem 'faraday'
 gem 'figaro'
-gem 'cancancan', '~> 2.0'
-gem 'devise'
 gem 'doorkeeper'
+gem 'blueprinter'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -40,6 +39,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.0'
   gem 'vcr'
   gem 'webmock'
+  gem 'faker'
 end
 
 group :development do
