@@ -1,5 +1,6 @@
 class Brewery
   BASE_URL = 'https://api.openbrewerydb.org/breweries'.freeze
+  private_constant :BASE_URL
   
   def list(options = {})
     get_url(options: options)
