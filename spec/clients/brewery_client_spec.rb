@@ -8,12 +8,12 @@ RSpec.describe 'Brewery DB Client' do
   end
 
   it '#list' do
-    VCR.use_cassette('brew_list', allow_playback_repeats: true) do
+    use_cassette('brew_list') do
       @breweries = subject.list
       @first_page_first_brewery_id = @breweries.first[:id]
     end
     
-    VCR.use_cassette('second_page_breweries', allow_playback_repeats: true) do
+    use_cassette('second_page_breweries') do
       @breweries_2 = subject.list(page: 2)
       @second_page_first_brewery_id = @breweries_2.first[:id]
     end
