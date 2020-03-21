@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  subject { create(:user) }
+  
   context :associations do
     it { should have_many(:access_grants) }
     it { should have_many(:access_tokens) }
