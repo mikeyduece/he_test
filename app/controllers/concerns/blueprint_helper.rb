@@ -10,7 +10,7 @@ module BlueprintHelper
   end
   
   def error_response(status, message)
-    response = default_response(status, message)
+    response = default_response(status, {}, message)
     render json: response
   end
   

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActionController::Helpers
   include BlueprintHelper
   
   before_action :doorkeeper_authorize!
