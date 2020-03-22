@@ -6,8 +6,10 @@ module BrewerySearchService
     
       yield(Success.new(brewery), NoTrigger)
   
+    rescue Search::InvalidQueryParams => e
+      yield(NoTrigger, Failure.new(e))
     rescue StandardError => e
-      yield(NoTrigger, Failure.new(e.message))
+      yield(NoTrigger, Failure.new(e))
     end
     
   end

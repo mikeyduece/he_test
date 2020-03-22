@@ -49,6 +49,7 @@ RSpec.describe 'BrewerySearchService' do
   it 'should raise an error for invalid params' do
     brewery_service(:index, { by_stuff: 'Testing' }) do |success, failure|
       success.call { |resource| expect(resource).to be_a(NoTrigger) }
+      
       failure.call do |resource|
         expect(resource).to be_a(Search::InvalidQueryParams)
         expect(resource.status).to eq(404)
