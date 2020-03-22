@@ -1,7 +1,7 @@
 class Api::V1::Search::Breweries::BreweriesController < ApplicationController
 
   def index
-    BrewerySearchService::Index.call do |success, failure|
+    BrewerySearchService::Index.call(params) do |success, failure|
       success.call do |resource|
         success_response(200, breweries: serialized_response(resource, Breweries::BreweryBlueprint, view: :extended))
       end

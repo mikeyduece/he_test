@@ -1,7 +1,7 @@
 module BrewerySearchService
   class BaseService
     def initialize(query = {}, url = nil)
-      @query = query
+      @query = sliced_query_params(query)
       @url   = url
     end
     
@@ -24,6 +24,10 @@ module BrewerySearchService
     private
     
     attr_reader :query, :url, :search
+    
+    def sliced_query_params(query_params)
+      query_params.slice(:by_type, :by_city, :by_state, :by_tags, :by_name)
+    end
     
     # Finds or creates a query based on the user input. Ensuring that the query is unique
     def create_search_if_required
