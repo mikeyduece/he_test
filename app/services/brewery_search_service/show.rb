@@ -2,9 +2,9 @@ module BrewerySearchService
   class Show < BaseService
     def call(&block)
       create_search_if_required
-      breweries = client.send(url, id: query[:id])
+      brewery = client.send(url, id: query[:id])
     
-      yield(Success.new(breweries), NoTrigger)
+      yield(Success.new(brewery), NoTrigger)
   
     rescue StandardError => e
       yield(NoTrigger, Failure.new(e.message))
