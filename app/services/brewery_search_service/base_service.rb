@@ -26,7 +26,7 @@ module BrewerySearchService
     attr_reader :query, :url, :search
     
     def sliced_query_params(query_params)
-      query_params.slice(:by_type, :by_city, :by_state, :by_tags, :by_name)
+      query_params.slice(:by_type, :by_city, :by_state, :by_tags, :by_name, :page, :per_page)
     end
     
     # Finds or creates a query based on the user input. Ensuring that the query is unique

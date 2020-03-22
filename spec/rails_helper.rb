@@ -89,7 +89,7 @@ RSpec.configure do |config|
 end
 
 def use_cassette(cassette, &block)
-  VCR.use_cassette(cassette, allow_playback_repeats: true) do
+  VCR.use_cassette(cassette, allow_playback_repeats: true, record: :new_episodes) do
     yield
   end
 end

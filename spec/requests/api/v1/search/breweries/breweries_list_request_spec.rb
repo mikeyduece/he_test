@@ -41,6 +41,21 @@ RSpec.describe 'GET /breweries', type: :request do
         expect(breweries.all? { |h| h[:city].eql?('Denver') })
       end
     end
-  
+
+    it 'should paginate through params' do
+      use_cassette('brew_list') do
+        get api_v1_breweries_path, headers: { 'Authorization': authorization }
+        json = parse_json(response.body)
+        @brew_1 = json[:breweries].first
+      end
+      
+      use_cassette('second_page_breweries') do
+        get api_v1_breweries_path, params: { page: 2 }, headers: { 'Authorization': authorization }
+        json = parse_json(response.body)
+        @brew_2 = json[:breweries].first
+      end
+      
+      expect(@brew_1[:id]).not_to eq(@brew_2[:id])
+    end
   end
 end
