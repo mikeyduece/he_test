@@ -31,11 +31,11 @@ module BrewerySearchService
     attr_reader :query, :url, :search, :params
     
     def sliced_query_params(query_params)
-      query_params.slice(:by_type, :by_city, :by_state, :by_tags, :by_name, :page, :per_page, :id)
+      query_params.slice(:by_type, :by_city, :by_state, :by_tags, :by_name, :page, :per_page, :id, :sort)
     end
     
     def authorized_params
-      %i[by_type by_city by_state by_tags by_name page per_page id]
+      %i[by_type by_city by_state by_tags by_name page per_page id sort]
     end
     
     def authorized_params?
