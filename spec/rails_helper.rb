@@ -9,6 +9,11 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'vcr'
+require 'simplecov'
+SimpleCov.start
+
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/cassettes"
@@ -50,6 +55,7 @@ end
 DatabaseCleaner.strategy = :truncation
 
 RSpec.configure do |config|
+  config.include Rails.application.routes.url_helpers
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -85,4 +91,20 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+def use_cassette(cassette, &block)
+  VCR.use_cassette(cassette, allow_playback_repeats: true, record: :new_episodes) do
+    yield
+  end
+end
+
+def brewery_service(method, options = {}, &block)
+  "BrewerySearchService::#{method.to_s.classify}".constantize.call(options) do |success, _failure|
+    yield(success, _failure)
+  end
+end
+
+def parse_json(body)
+  JSON.parse(body, symbolize_names: true)
 end

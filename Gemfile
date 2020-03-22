@@ -13,6 +13,7 @@ gem 'database_cleaner'
 gem 'faraday'
 gem 'figaro'
 gem 'doorkeeper'
+gem 'devise'
 gem 'blueprinter'
 gem 'redis-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -42,6 +43,7 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'faker'
+  gem 'codecov', require: false
 end
 
 group :development do
