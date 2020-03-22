@@ -16,8 +16,8 @@ RSpec.describe 'GET /breweries/:id' do
         get api_v1_brewery_path(2), headers: { 'Authorization': authorization }
         brewery = parse_json(response.body)
         
-        expect(brewery[:id]).to eq(2)
-        expect(brewery[:name]).to eq('Avondale Brewing Co')
+        expect(brewery[:brewery][:id]).to eq(2)
+        expect(brewery[:brewery][:name]).to eq('Avondale Brewing Co')
       end
     end
 
@@ -25,9 +25,9 @@ RSpec.describe 'GET /breweries/:id' do
       use_cassette('find_brewery_3') do
         get api_v1_brewery_path(3), headers: { 'Authorization': authorization }
         brewery = parse_json(response.body)
-        require 'pry'; binding.pry
-        expect(brewery[:id]).to eq(3)
-        expect(brewery[:name]).not_to eq('Avondale Brewing Co')
+        
+        expect(brewery[:brewery][:id]).to eq(3)
+        expect(brewery[:brewery][:name]).not_to eq('Avondale Brewing Co')
       end
     end
   end
