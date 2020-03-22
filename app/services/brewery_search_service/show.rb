@@ -9,5 +9,6 @@ module BrewerySearchService
     rescue StandardError => e
       yield(NoTrigger, Failure.new(e.message))
     end
+    
   end
 end
