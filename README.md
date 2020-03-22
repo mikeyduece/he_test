@@ -6,12 +6,17 @@
 [![CircleCI](https://circleci.com/gh/mikeyduece/he_test.svg?style=svg)](https://circleci.com/gh/mikedyuece/he_test)
 
 # Table of Contents
-* 
+* [Description](#description)
+* [Endpoints](#endpoints)
+* [System Requirements](#system-requirements)
+* [Initial Setup](#initial-setup)
+* [Running Tests](#running-tests)
+* [Dependencies](#dependencies)
 
 
 Description
 ---
-This is a small Rails API for searching for breweries in the US. A user must be registered and logged in to access
+This is a small Rails API for searching breweries in the US. A user must be registered and logged in to access
 the endpoints relating to the breweries.
 
 A logged in user can see a paginated list of breweries or add parameters to the url in order to
@@ -21,19 +26,24 @@ by_type by_city by_state by_tags by_name page per_page sort
 ```
 
 A logged in user will also be able to sort the results by adding a `+` or `-` in front of the value they wish to 
-sort by along with the `search` query parameter:
+sort by along with the `sort` query parameter:
 
 ```
 - for ASC (default)
 + for DESC
-api_url/breweries?by_city=Denver&sort=+name
+/api/v1/breweries?by_city=Denver&sort=+name
 ```
 
+The app is hosted on Heroku @ [he-test.herokuapp.com/](https://he-test.herokuapp.com/)
+
+
 #### Endpoints
-##### POST `/users`
-> Creates/Registers user in the database using the following body structure
+  * The base url for all requests on Heroku is `https://he-test.herokuapp.com/`
+  * The base url for all local requests is `http://localhost:5000`
+##### POST `/api/v1/users`
+> Creates/Registers a user in the database using the following body structure
 ```
-POST /users
+POST /api/v1/users
 {
 	"user": {
 		"first_name": "Test",
@@ -42,10 +52,24 @@ POST /users
 		"password": "password"
 	}
 }
+
+# Sample Return
+{
+    "status": 201,
+    "message": null,
+    "user": {
+        "id": 1,
+        "email": "my_email@gmail.com",
+        "first_name": "Test",
+        "last_name": "User"
+    }
+}
 ```
 ##### POST `/oauth/token`
 > Logs the user in receiving a Bearer token that is needed for all subsequent requests
+> and will need to be added as a header `'Authorization': Bearer {{token}}'`
 ```
+# Submitted params to login
 {
     "grant_type" : "password",
     "client_id" : "{{client_id}}",
@@ -54,14 +78,60 @@ POST /users
     "password" : "password",
     "scopes" : "basic"
 }
+
+# Return with token
+{
+    "access_token": "POoRfOwc6QBCQCE7Vh381Zf8GmBkKQhIj0JWmnTvRtQ",
+    "token_type": "Bearer",
+    "expires_in": 7200,
+    "created_at": 1584868430
+}
 ```
 
-##### GET `/breweries`
+##### GET `/api/v1/breweries`
 > Returns a list of breweries, which can be scoped using the authorized query params listed above.
-> `/breweries?by_city=Denver&page=2` will return the second page of breweries in Denver.
+> `/api/v1/breweries?by_city=Birmingham` will return the first page of breweries in Birmingham. Example below:
+```
+{
+    "status": 200,
+    "message": null,
+    "breweries": [
+        {
+            "id": 2,
+            "brewery_type": "micro",
+            "city": "Birmingham",
+            "name": "Avondale Brewing Co",
+            "phone": "2057775456",
+            "postal_code": "35222-1932",
+            "state": "Alabama",
+            "street": "201 41st St S",
+            "website_url": "http://www.avondalebrewing.com"
+        },
+        ...
+    ]
+```
 
-##### GET `/breweries/:id`
-> Returns a specific brewery for the given id
+##### GET `/api/v1/breweries/:id`
+> Returns a specific brewery for the given id. Example below:
+```
+# /api/v1/breweries/1296
+
+{
+    "status": 200,
+    "message": null,
+    "brewery": {
+        "id": 1296,
+        "brewery_type": "micro",
+        "city": "Denver",
+        "name": "Chain Reaction Brewing Company",
+        "phone": "3039220960",
+        "postal_code": "80223-2717",
+        "state": "Colorado",
+        "street": "902 S Lipan St",
+        "website_url": "http://www.chainreactionbrewingco.com"
+    }
+}
+```
 
 System Requirements
 ---
