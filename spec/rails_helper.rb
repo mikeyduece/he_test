@@ -50,6 +50,7 @@ end
 DatabaseCleaner.strategy = :truncation
 
 RSpec.configure do |config|
+  config.include Rails.application.routes.url_helpers
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -97,4 +98,8 @@ def brewery_service(method, options = {}, &block)
   "BrewerySearchService::#{method.to_s.classify}".constantize.call(options) do |success, _failure|
     yield(success, _failure)
   end
+end
+
+def parse_json(body)
+  JSON.parse(body, symbolize_names: true)
 end
