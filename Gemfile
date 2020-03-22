@@ -41,6 +41,7 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'faker'
+  gem 'codecov', require: false
 end
 
 group :development do
