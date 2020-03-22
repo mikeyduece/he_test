@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'GET /breweries', type: :request do
+  context :unquthorized do
+    it 'should not allow unregistered users to use the app' do
+      use_cassette('unauthorized') do
+        get api_v1_breweries_path
+        error = parse_json(response.body)
+        
+        expect(response).not_to be_successful
+        expect(response.status).to eq(401)
+        expect(error[:error]).to eq('Not Authorized')
+      end
+    end
+  end
+  
   context :authorized do
     let(:oauth_app) {
       Doorkeeper::Application.create!(
@@ -41,17 +54,17 @@ RSpec.describe 'GET /breweries', type: :request do
         expect(breweries.all? { |h| h[:city].eql?('Denver') })
       end
     end
-
+    
     it 'should paginate through params' do
       use_cassette('brew_list') do
         get api_v1_breweries_path, headers: { 'Authorization': authorization }
-        json = parse_json(response.body)
+        json    = parse_json(response.body)
         @brew_1 = json[:breweries].first
       end
       
       use_cassette('second_page_breweries') do
         get api_v1_breweries_path, params: { page: 2 }, headers: { 'Authorization': authorization }
-        json = parse_json(response.body)
+        json    = parse_json(response.body)
         @brew_2 = json[:breweries].first
       end
       
