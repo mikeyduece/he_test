@@ -13,6 +13,7 @@ gem 'database_cleaner'
 gem 'faraday'
 gem 'figaro'
 gem 'doorkeeper'
+gem 'devise'
 gem 'blueprinter'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
